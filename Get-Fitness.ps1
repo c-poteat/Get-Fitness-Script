@@ -1,15 +1,23 @@
+Function Get-Fitness {
 Write-Host `n'Welcome Get-Fitness :)'`n
 
-$age = Read-Host -Prompt 'Please enter your age'
-$gender = Read-Host -Prompt `n'Are you a male or a female'
-$gender = $gender.ToUpper() 
-$height = Read-Host -Prompt `n'Please enter your height in inches'
-$weight = Read-Host -Prompt `n'Please enter your weight in lbs'
-$bmi = [Math]::Round(($weight / $height / $height) * 703,1)  #Example formula for BMI  #(37.25 lbs / 41.5 in / 41.5 in) x 703 = 15.2
-$bmrMale = [Math]::Round(4.536 * $weight + (15.88 * $height) - (5 * $age) + 5)
-$bmrFemale = [Math]::Round(4.536 * $weight + (15.88 * $height) - (5 * $age) - 161)
+try {
+  # Prompt the user for input
+  [int]$age = Read-Host -Prompt 'Please enter your age'
+  [int]$height = Read-Host -Prompt `n'Please enter your height in inches'
+  [int]$weight = Read-Host -Prompt `n'Please enter your weight in lbs'
 
-Write-Host `n'Your BMI is' $bmi`n
+  $gender = Read-Host -Prompt `n'Are you a male or a female'
+  # Successful 
+  [int]$bmi = [Math]::Round(($weight / $height / $height) * 703,1)  #Example formula for BMI  #(37.25 lbs / 41.5 in / 41.5 in) x 703 = 15.2
+  [int]$bmrMale = [Math]::Round(4.536 * $weight + (15.88 * $height) - (5 * $age) + 5)
+  [int]$bmrFemale = [Math]::Round(4.536 * $weight + (15.88 * $height) - (5 * $age) - 161)
+  [int]$bmrMale = [Math]::Round(4.536 * $weight + (15.88 * $height) - (5 * $age) + 5)
+  [int]$bmrFemale = [Math]::Round(4.536 * $weight + (15.88 * $height) - (5 * $age) - 161)
+
+  $gender = $gender.ToUpper() 
+
+  Write-Host `n'Your BMI is' $bmi`n
 if($bmi -gt 30) {
     Write-Host 'Also your BMI of' $bmi 'is considered to be within the Obese range'`n
 } elseif ($bmi -gt 25 -AND $bmi -lt 30) {
@@ -28,9 +36,13 @@ if ($gender -eq 'F' -OR $gender -eq 'FEMALE') {
     Write-Host 'Your basic metabolic rate is ***' $bmrMale 'calories and depending on your activity level adjust for weight loss or weight gain'`n 
     Write-Host 'Maintenance calories'`n
     Write-Host 'Sedentary *** ' ($bmrMale + 404) 'calories' `n'Light Exercise ***' ($bmrMale + 758) 'calories' `n'Moderate Exercise ***' ($bmrMale + 1111) 'calories' `n'Heavy Exercise *** ' ($bmrMale + 1465) 'calories' `n
+    }
+
+} catch {
+    # If an error occurs, output an error message
+    Write-Output `n"Invalid input. Please enter the correct input."`n 
+ }
 }
-
-
 
 #****TODO***********
 # Need to add a function for script
